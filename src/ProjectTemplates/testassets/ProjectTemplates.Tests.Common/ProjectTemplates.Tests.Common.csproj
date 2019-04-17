@@ -1,9 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <EnforcePrerequisites>false</EnforcePrerequisites>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <Description>Common infra for project templates.</Description>
   </PropertyGroup>

@@ -4,7 +4,6 @@
   <Import Project="$(SharedSourceRoot)E2ETesting\E2ETesting.props" />
 
   <PropertyGroup>
-    <EnforcePrerequisites>true</EnforcePrerequisites>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <TestGroupName>ProjectTemplates.E2ETests</TestGroupName>
     <DefineConstants>$(DefineConstants);XPLAT</DefineConstants>
@@ -35,7 +34,7 @@
   <ItemGroup>
     <ProjectReference Include="$(RepositoryRoot)src\Hosting\Server.IntegrationTesting\src\Microsoft.AspNetCore.Server.IntegrationTesting.csproj" />
     <ProjectReference Include="../../testassets/DotNetToolsInstaller/DotNetToolsInstaller.csproj" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="../ProjectTemplates.Tests.Common/ProjectTemplates.Tests.Common.csproj" />
+    <ProjectReference Include="../../testassets/ProjectTemplates.Tests.Common/ProjectTemplates.Tests.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

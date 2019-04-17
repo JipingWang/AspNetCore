@@ -1,4 +1,4 @@
 <Project>
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory)..\, Directory.Build.targets))\Directory.Build.targets" />
-  <Import Project="$(MSBuildThisFileDirectory)ProjectTemplates.Tests.Common\Infrastructure\GenerateTestProps.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)..\testassets\ProjectTemplates.Tests.Common\Infrastructure\GenerateTestProps.targets" />
 </Project>
