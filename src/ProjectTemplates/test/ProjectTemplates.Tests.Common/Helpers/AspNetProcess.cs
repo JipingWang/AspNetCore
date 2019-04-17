@@ -12,8 +12,6 @@ using AngleSharp.Dom.Html;
 using AngleSharp.Parser.Html;
 using Microsoft.AspNetCore.Certificates.Generation;
 using Microsoft.Extensions.CommandLineUtils;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Edge;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -24,10 +22,10 @@ namespace Templates.Test.Helpers
     {
         private const string ListeningMessagePrefix = "Now listening on: ";
         private readonly HttpClient _httpClient;
-        private readonly ITestOutputHelper _output;
 
-        internal readonly Uri ListeningUri;
-        internal ProcessEx Process { get; }
+        public readonly ITestOutputHelper Output;
+        public readonly Uri ListeningUri;
+        public ProcessEx Process { get; }
 
         public AspNetProcess(
             ITestOutputHelper output,
@@ -37,7 +35,7 @@ namespace Templates.Test.Helpers
             bool published = true,
             bool hasListeningUri = true)
         {
-            _output = output;
+            Output = output;
             _httpClient = new HttpClient(new HttpClientHandler()
             {
                 AllowAutoRedirect = true,
@@ -59,35 +57,6 @@ namespace Templates.Test.Helpers
             if(hasListeningUri)
             {
                 ListeningUri = GetListeningUri(output);
-            }
-        }
-
-        public void VisitInBrowser(IWebDriver driver)
-        {
-            _output.WriteLine($"Opening browser at {ListeningUri}...");
-            driver.Navigate().GoToUrl(ListeningUri);
-
-            if (driver is EdgeDriver)
-            {
-                // Workaround for untrusted ASP.NET Core development certificates.
-                // The edge driver doesn't supported skipping the SSL warning page.
-
-                if (driver.Title.Contains("Certificate error", StringComparison.OrdinalIgnoreCase))
-                {
-                    _output.WriteLine("Page contains certificate error. Attempting to get around this...");
-                    driver.FindElement(By.Id("moreInformationDropdownSpan")).Click();
-                    var continueLink = driver.FindElement(By.Id("invalidcert_continue"));
-                    if (continueLink != null)
-                    {
-                        _output.WriteLine($"Clicking on link '{continueLink.Text}' to skip invalid certificate error page.");
-                        continueLink.Click();
-                        driver.Navigate().GoToUrl(ListeningUri);
-                    }
-                    else
-                    {
-                        _output.WriteLine("Could not find link to skip certificate error page.");
-                    }
-                }
             }
         }
 
@@ -182,7 +151,7 @@ namespace Templates.Test.Helpers
         public Task AssertNotFound(string requestUrl)
             => AssertStatusCode(requestUrl, HttpStatusCode.NotFound);
 
-        internal Task<HttpResponseMessage> SendRequest(string path)
+        public Task<HttpResponseMessage> SendRequest(string path)
         {
             return _httpClient.GetAsync(new Uri(ListeningUri, path));
         }

@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.E2ETesting;
 using OpenQA.Selenium;
+using ProjectTemplates.Tests.Helpers;
 using Templates.Test.Helpers;
 using Xunit;
 using Xunit.Abstractions;

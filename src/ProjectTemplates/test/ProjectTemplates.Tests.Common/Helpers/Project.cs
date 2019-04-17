@@ -41,7 +41,7 @@ namespace Templates.Test.Helpers
         public ITestOutputHelper Output { get; set; }
         public IMessageSink DiagnosticsMessageSink { get; set; }
 
-        internal async Task<ProcessEx> RunDotNetNewAsync(string templateName, string auth = null, string language = null, bool useLocalDB = false, bool noHttps = false)
+        public async Task<ProcessEx> RunDotNetNewAsync(string templateName, string auth = null, string language = null, bool useLocalDB = false, bool noHttps = false)
         {
             var hiveArg = $"--debug:custom-hive \"{TemplatePackageInstaller.CustomHivePath}\"";
             var args = $"new {templateName} {hiveArg}";
@@ -88,7 +88,7 @@ namespace Templates.Test.Helpers
             }
         }
 
-        internal async Task<ProcessEx> RunDotNetPublishAsync(bool takeNodeLock = false)
+        public async Task<ProcessEx> RunDotNetPublishAsync(bool takeNodeLock = false)
         {
             Output.WriteLine("Publishing ASP.NET application...");
 
@@ -114,7 +114,7 @@ namespace Templates.Test.Helpers
             }
         }
 
-        internal async Task<ProcessEx> RunDotNetBuildAsync(bool takeNodeLock = false)
+        public async Task<ProcessEx> RunDotNetBuildAsync(bool takeNodeLock = false)
         {
             Output.WriteLine("Building ASP.NET application...");
 
@@ -135,7 +135,7 @@ namespace Templates.Test.Helpers
             }
         }
 
-        internal AspNetProcess StartBuiltServerAsync()
+        public AspNetProcess StartBuiltServerAsync()
         {
             var environment = new Dictionary<string, string>
             {
@@ -146,7 +146,7 @@ namespace Templates.Test.Helpers
             return new AspNetProcess(Output, TemplateServerDir, projectDll, environment, published: false);
         }
 
-        internal AspNetProcess StartBuiltClientAsync(AspNetProcess serverProcess)
+        public AspNetProcess StartBuiltClientAsync(AspNetProcess serverProcess)
         {
             var environment = new Dictionary<string, string>
             {
@@ -157,7 +157,7 @@ namespace Templates.Test.Helpers
             return new AspNetProcess(Output, TemplateOutputDir, projectDll, environment, hasListeningUri: false);
         }
 
-        internal AspNetProcess StartPublishedServerAsync()
+        public AspNetProcess StartPublishedServerAsync()
         {
             var environment = new Dictionary<string, string>
             {
@@ -168,7 +168,7 @@ namespace Templates.Test.Helpers
             return new AspNetProcess(Output, TemplateServerReleaseDir, projectDll, environment);
         }
 
-        internal AspNetProcess StartPublishedClientAsync()
+        public AspNetProcess StartPublishedClientAsync()
         {
             var environment = new Dictionary<string, string>
             {
@@ -179,7 +179,7 @@ namespace Templates.Test.Helpers
             return new AspNetProcess(Output, TemplateClientReleaseDir, projectDll, environment);
         }
 
-        internal AspNetProcess StartBuiltProjectAsync()
+        public AspNetProcess StartBuiltProjectAsync()
         {
             var environment = new Dictionary<string, string>
             {
@@ -191,7 +191,7 @@ namespace Templates.Test.Helpers
             return new AspNetProcess(Output, TemplateOutputDir, projectDll, environment);
         }
 
-        internal AspNetProcess StartPublishedProjectAsync()
+        public AspNetProcess StartPublishedProjectAsync()
         {
             var environment = new Dictionary<string, string>
             {
@@ -202,7 +202,7 @@ namespace Templates.Test.Helpers
             return new AspNetProcess(Output, TemplatePublishDir, projectDll, environment);
         }
 
-        internal async Task<ProcessEx> RestoreWithRetryAsync(ITestOutputHelper output, string workingDirectory)
+        public async Task<ProcessEx> RestoreWithRetryAsync(ITestOutputHelper output, string workingDirectory)
         {
             // "npm restore" sometimes fails randomly in AppVeyor with errors like:
             //    EPERM: operation not permitted, scandir <path>...
@@ -269,7 +269,7 @@ namespace Templates.Test.Helpers
             }
         }
 
-        internal async Task<ProcessEx> RunDotNetEfCreateMigrationAsync(string migrationName)
+        public async Task<ProcessEx> RunDotNetEfCreateMigrationAsync(string migrationName)
         {
             var assembly = typeof(ProjectFactoryFixture).Assembly;
 
@@ -294,7 +294,7 @@ namespace Templates.Test.Helpers
             }
         }
 
-        internal async Task<ProcessEx> RunDotNetEfUpdateDatabaseAsync()
+        public async Task<ProcessEx> RunDotNetEfUpdateDatabaseAsync()
         {
             var assembly = typeof(ProjectFactoryFixture).Assembly;
 
@@ -368,7 +368,7 @@ namespace Templates.Test.Helpers
             return File.ReadAllText(Path.Combine(TemplateOutputDir, path));
         }
 
-        internal async Task<ProcessEx> RunDotNetNewRawAsync(string arguments)
+        public async Task<ProcessEx> RunDotNetNewRawAsync(string arguments)
         {
             await DotNetNewLock.WaitAsync();
             try

@@ -15,7 +15,7 @@ using Xunit.Abstractions;
 
 namespace Templates.Test.Helpers
 {
-    internal class ProcessEx : IDisposable
+    public class ProcessEx : IDisposable
     {
         private static readonly string NUGET_PACKAGES = GetNugetPackagesRestorePath();
 
@@ -158,7 +158,7 @@ namespace Templates.Test.Helpers
             _exited.TrySetResult(_process.ExitCode);
         }
 
-        internal string GetFormattedOutput()
+        public string GetFormattedOutput()
         {
             if (!_process.HasExited)
             {

@@ -3,7 +3,7 @@
 
 namespace Templates.Test.Helpers
 {
-    internal static class ErrorMessages
+    public static class ErrorMessages
     {
         public static string GetFailedProcessMessage(string step, Project project, ProcessEx processResult)
         {
